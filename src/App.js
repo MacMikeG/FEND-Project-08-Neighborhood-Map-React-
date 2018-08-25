@@ -1,21 +1,57 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+
+import axios from 'axios'
 
 class App extends Component {
 
-  componentDidMount() { //when lifecycle event occures, load the API script
-    this.loadMap();
+  state = {     //state with an initially empty array for storing the dynamic data fetched from FourSquare with axios
+    venues: []  
   }
 
-  loadMap = () => {
+  componentDidMount() { //when lifecycle event occures:
+    //this.loadMap();     //moved to be executed after retrieving venues data
+    this.loadVenues();  //load the FourSquare venues (async request)
+  }
+
+  loadMap = () => {   // async request- runs before loadVenues   
     loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyDBkyQ3QLLNh1nrLb5yFdoVBEVh8hShKwQ&callback=initMap')
     window.initMap = this.initMap
   }
 
+  loadVenues = () => { //https://developer.foursquare.com/docs/api/venues/explore
+    let endPoint = 'https://api.foursquare.com/v2/venues/explore?'
+    let parameters = {
+      client_id: 'HNIBIFKNSBGMYVVAQ5SVS4LJIAWZHGY1N05EMZ1Q1C1YGJ1W',
+      client_secret: 'ALTRQQRSB0ASLKJVTY52RYUIQXIPDIBB5S2YVUEWVS5KBRNR',
+      v: '20180824',
+      near: 'Prague',  //li:'50.10285,14.45668',
+      query:'coffee',
+    }
+    axios.get(endPoint + new URLSearchParams(parameters)) //http client for fetch, create object with parameters specified in loadVenues
+      .then(response => {
+        this.setState({
+          venues: response.data.response.groups[0].items  //pass the returned array of venues into a state for React use
+        }, this.loadMap())    //load the Google Maps API script as a callback function, after venues state receive data
+      })
+      .catch(error => {                   //print error msg into the console
+        console.log('error! ' + error)
+      })
+  }
+
   initMap = () => { //as API script callback refers to initMap window
-    let map = new window.google.maps.Map(document.getElementById('mapContainer'), {  //window as a global object of the HTML document
-      center: {lat: 50.10285, lng: 14.45668},
-      zoom: 15
+    let map = new window.google.maps.Map(document.getElementById('mapContainer'), {  //access google as a global, window object
+      center: {lat: 50.10285, lng: 14.45668},    
+      zoom: 13
+    })
+
+    this.state.venues.map(newVenue => {  //loop over dynamic venues array/state, for each venue create a marker
+
+      let marker = new window.google.maps.Marker({  //blueprint for all markers
+        position: {lat: newVenue.venue.location.lat, lng: newVenue.venue.location.lng},   //lat and lng imported from an array fetched by Axios from FourSquare 
+        map: map,
+        title: newVenue.venue.name,  //replace with info window
+      })
     })
   }
 
