@@ -62,7 +62,7 @@ class App extends Component {
         return (
             <div className = 'container'>
                 <div className = 'header' aria-label = 'header'>
-                    <button aria-label = 'menu'
+                    <button aria-label = 'Search for vegan places'
                             className = 'button'
                             onClick = {this.showMenu} />
                     <h1 tabIndex = '1'>Vegan spots in Prague</h1>
