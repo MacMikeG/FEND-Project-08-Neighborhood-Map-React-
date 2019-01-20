@@ -1,44 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Neighborhood Map (React)
 
-## Available Scripts
+Project for Udacity Front End Nanodegree
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+The neighborhood map application is a complex project, that requires interaction with third-party libraries and APIs servers through asynchronous requests and a variety of data points, using React framework and its design patterns. 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+My implementation of the Neighborhood Map Project, is a Responsive Web Application, that displays map with markers of 30 vegan-friendly places in the center of Prague. 
+Each marker has a green-leaf icon, that jumps after selecting it. Animation of all the markers falling can be seen just after opening the app.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Application has a simple, intuitive design: header bar with a hamburger icon and title, main part of the window with a map and a footer that contains link to FourSquare.com and information about data source. Hamburger icon toggles on/off sidebar on the left hand side, that contains list of venues that reflects displayed locations on the map. Click on one of the list items or on corresponding marker on the map, centers the view on it and displays an infoWindow from that specific location. Shown balloon contains the name of the place, address and a link redirecting for details to FourSquare.
 
-### `npm test`
+I used Fetch API for asynchronous fetch of data, that was then converted to JSON and used to create locations list, followed by markers by Google Maps API .
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Clone or download and unzip the packed repository 
+- it is necessary to replace GOOGLE_MAPS_API_KEY value in App.js component with a valid API KEY.
+- Using terminal and NPM commands in created directory: 
+    npm install, 
+    npm start
+- web browser will load project through local server, by default on port 3000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ ## TODO
+	- add additional data from 2nd api to display in infoWindow or modal / wikipedia
+	- center selected venue in windowsviewspace (marker offsets, eg. lat: venue.location.lat + 0.0002?)
+	- add map style
+	- make filter menu disapear after click
+	- make one source of truth for gMaps initial center and FourSquare reference point
+	- add option to select the query
+	- move the search input field to the header, leaving menu on the left
+  - sort list by popularity of places
