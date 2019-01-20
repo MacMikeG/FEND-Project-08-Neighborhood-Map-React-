@@ -1,78 +1,84 @@
-import React, { Component } from 'react'
-import './App.css'
 
-import axios from 'axios'
+import React, {Component} from 'react'
+import './index.css'
+import MapComponent from './MapComponent'
+
+/*
+    init google maps
+*/
+
 
 class App extends Component {
 
-  state = {     //state with an initially empty array for storing the dynamic data fetched from FourSquare with axios
-    venues: []  
-  }
-
-  componentDidMount() { //when lifecycle event occures:
-    //this.loadMap();     //moved to be executed after retrieving venues data
-    this.loadVenues();  //load the FourSquare venues (async request)
-  }
-
-  loadMap = () => {   // async request- runs before loadVenues   
-    loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyDBkyQ3QLLNh1nrLb5yFdoVBEVh8hShKwQ&callback=initMap')
-    window.initMap = this.initMap
-  }
-
-  loadVenues = () => { //https://developer.foursquare.com/docs/api/venues/explore
-    let endPoint = 'https://api.foursquare.com/v2/venues/explore?'
-    let parameters = {
-      client_id: 'HNIBIFKNSBGMYVVAQ5SVS4LJIAWZHGY1N05EMZ1Q1C1YGJ1W',
-      client_secret: 'ALTRQQRSB0ASLKJVTY52RYUIQXIPDIBB5S2YVUEWVS5KBRNR',
-      v: '20180824',
-      near: 'Prague',  //li:'50.10285,14.45668',
-      query:'coffee',
+    state = {
+        loadMsg: 'initializing Google Maps...',
+        menuIsHidden: false,
+        scriptIsLoaded: false
     }
-    axios.get(endPoint + new URLSearchParams(parameters)) //http client for fetch, create object with parameters specified in loadVenues
-      .then(response => {
-        this.setState({
-          venues: response.data.response.groups[0].items  //pass the returned array of venues into a state for React use
-        }, this.loadMap())    //load the Google Maps API script as a callback function, after venues state receive data
-      })
-      .catch(error => {                   //print error msg into the console
-        console.log('error! ' + error)
-      })
-  }
 
-  initMap = () => { //as API script callback refers to initMap window
-    let map = new window.google.maps.Map(document.getElementById('mapContainer'), {  //access google as a global, window object
-      center: {lat: 50.10285, lng: 14.45668},    
-      zoom: 13
-    })
+    initGoogleMaps() {
+        const GOOGLE_MAPS_API_KEY = 'AIzaSyDBkyQ3QLLNh1nrLb5yFdoVBEVh8hShKwQ';
+        const mapScript = document.createElement('script');
+        mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}`;
+        mapScript.async = true;
+        document.body.appendChild(mapScript);
+        mapScript.onload = () => {
+            this.setState ({
+                scriptIsLoaded: true,
+                loadMsg: 'Google Maps script loaded successfully.'
+            })  
+        }
+        mapScript.onerror = () => {
+            this.setState ({
+                scriptIsLoaded: false,
+                loadMsg: 'Error while loading Google Maps script. Please refresh or try again later.'
+            })
+        }
+        window.gm_authFailure = () => {
+            this.setState ({
+                scriptIsLoaded: false,
+                loadMsg: 'Authentication error while loading Google Maps. Please ensure that the valid API key was provided.'
+            })
+        }
+    }
 
-    this.state.venues.map(newVenue => {  //loop over dynamic venues array/state, for each venue create a marker
+    showMenu = () => {
+        if (this.state.menuIsHidden) {
+            this.setState ({
+                menuIsHidden: false
+            })
+        } else {
+            this.setState ({
+                menuIsHidden: true
+            })
+        }
+    }
 
-      let marker = new window.google.maps.Marker({  //blueprint for all markers
-        position: {lat: newVenue.venue.location.lat, lng: newVenue.venue.location.lng},   //lat and lng imported from an array fetched by Axios from FourSquare 
-        map: map,
-        title: newVenue.venue.name,  //replace with info window
-      })
-    })
-  }
+    componentDidMount () {
+        this.initGoogleMaps()
+    }
 
-  render() {
-    return (  //returns one tag only!
-      <main>
-        <div id='mapContainer'></div>
-      </main>     
-    )
-  }
+    render() {
+        return (
+            <div className = 'container'>
+                <div className = 'header' aria-label = 'header'>
+                    <button aria-label = 'menu'
+                            className = 'button'
+                            onClick = {this.showMenu} />
+                    <h1 tabIndex = '1'>Vegan spots in Prague</h1>
+                </div>
+
+                {this.state.scriptIsLoaded ?
+                <MapComponent menuIsHidden = {this.state.menuIsHidden} /> :
+                <h3 className = 'loadMsg'>{this.state.loadMsg}</h3>}
+
+                <div className = 'footer' aria-label = 'footer'>
+                    <p>locations data provided by</p>
+                    <a href = 'https://foursquare.com'>Foursquare</a>
+                </div>
+            </div>
+        )
+    }
 }
-
-
-  let loadScript = (url) => {
-    let index = window.document.getElementsByTagName('script')[0] //select the first (0 index) element with the tag name 'script'
-    let script = window.document.createElement('script')         //create the <script> element 
-    script.src = url                                             //source
-    script.async = true                                          //load the script asynchronicouselly
-    script.defer = true                                          //fetch the script parallel to parsing, wait with execution after the body content is parsed and rendered
-    index.parentNode.insertBefore(script, index)                 //script: newNode, index: referenceNode
-  }
-
 
 export default App;

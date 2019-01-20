@@ -1,5 +1,136 @@
-body {
+
+html, body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-variant-caps: all-small-caps;
+  overflow: hidden;
 }
+
+    .header {
+      display: flex;
+      background-color: palegreen;
+      height: 50px;
+      z-index: 1000 ;
+    }
+        .header h1 {
+          margin-left: 10px;
+          margin-top: 10px;
+          color: black;
+          font-size: 2em;
+          line-height: 1em;
+          z-index: 1000 ;
+        }
+        .button {
+          background: url('./hamMenu.png') no-repeat;
+          background-size: contain;
+          width: 30px;
+          height: 30px;
+          cursor: pointer;
+          border: none;
+          margin-left: 10px;
+          margin-top: 10px;
+          z-index: 1000 ;
+        }
+
+
+    #map {
+      height: calc(100vh - 50px - 15px);
+    }
+
+    .footer {
+      height: 15px;
+      font-size: 0.8em;
+      display: flex;
+      justify-content: flex-end;
+      background-color: palegreen;
+      color: black;
+      overflow: hidden;
+    }
+    .footer p {
+      margin: 0;
+      padding: 0;
+    }
+    .footer a {
+      margin-left: 5px;
+      margin-right: 5px;
+      color: black;
+    }
+
+
+
+.side-menu {
+  position: absolute;
+  top: 15vh;
+  margin-top: 45px;
+  bottom: 15vh;
+  background-color: palegreen;
+  cursor: pointer;
+  overflow: auto;
+  width: 30vw;
+}
+    .user-input input {
+      position: absolute;
+      width: 100%;
+      line-height: 1.4em;
+      font-size: 1.4em;
+      color: #30231d;
+      border: none;
+    }
+    .list-item {
+      line-height: 2em;
+      font-size: 1.4em;
+      padding-left: 10px;
+    }
+
+
+.loadMsg {
+  position: absolute;
+  text-align: center;
+  z-index: 3;
+  padding: 20px;
+  background-color: lightyellow;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 160px) {
+  .header h1 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 219px) {
+  .header h1 {
+    font-size: 1em;
+  }
+  .side-menu {
+    width: 100vw;
+  }
+
+}
+
+@media screen and (min-width: 220px) and (max-width: 319px) {
+  .header h1 {
+    font-size: 1.2em;
+  }
+  .side-menu {
+    min-width: 220px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 579px){
+  .header h1 {
+    font-size: 1.4em;
+  }
+  .side-menu {
+    min-width: 220px;
+  }
+}
+@media screen and (min-width: 560px) and (max-width: 800px){
+  .header h1 {
+    font-size: 1.6em;
+  }
+  .side-menu {
+    min-width: 220px;
+  }
+}
+
