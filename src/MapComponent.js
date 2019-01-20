@@ -37,7 +37,7 @@ class MapComponent extends Component {
             query: 'vegan',
             ll: '50.084190,14.423474',  //near: 'Prague',
             radius: 100000,
-            limit: 50
+            limit: 30
         }
         fetch(params.url + new URLSearchParams(params))         
             .then(response => {                                     //resolution of returned promise
