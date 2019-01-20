@@ -2,6 +2,9 @@
 
 Project for Udacity Front End Nanodegree
 
+Project rubric:
+https://github.com/MacMikeG/FEND-Project-08-Neighborhood-Map-React-/blob/master/Udacity_Project_08_Neighborhood_Map_rubric.pdf
+
 ## Description
 
 The neighborhood map application is a complex project, that requires interaction with third-party libraries and APIs servers through asynchronous requests and a variety of data points, using React framework and its design patterns. 
