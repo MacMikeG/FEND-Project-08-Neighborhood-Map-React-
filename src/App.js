@@ -17,7 +17,7 @@ class App extends Component {
     }
 
     initGoogleMaps() {
-        const GOOGLE_MAPS_API_KEY = 'AIzaSyDBkyQ3QLLNh1nrLb5yFdoVBEVh8hShKwQ';
+        const GOOGLE_MAPS_API_KEY = '';
         const mapScript = document.createElement('script');
         mapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}`;
         mapScript.async = true;
