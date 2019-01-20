@@ -1,6 +1,6 @@
 # Neighborhood Map (React)
 
-Project for Udacity Front End Nanodegree
+Final project for Udacity Front End Nanodegree
 
 Project rubric:
 https://github.com/MacMikeG/FEND-Project-08-Neighborhood-Map-React-/blob/master/Udacity_Project_08_Neighborhood_Map_rubric.pdf
