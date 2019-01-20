@@ -56,6 +56,7 @@ class MenuComponent extends Component {
 
                 {filteredLocations.map(location =>      //menu list of locations updated by mapping along with queries
                     <div className = 'list-item'
+                        aria-labelledby = 'side-menu'
                         tabIndex = '0' 
                         role = 'listitem' 
                         key = {location.id} 
