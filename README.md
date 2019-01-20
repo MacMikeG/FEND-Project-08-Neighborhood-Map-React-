@@ -17,6 +17,19 @@ Application has a simple, intuitive design: header bar with a hamburger icon and
 I used Fetch API for asynchronous fetch of data, that was then converted to JSON and used to create locations list, followed by markers by Google Maps API .
 
 
+## Offline Use - Service Worker
+
+When available in the browser, the site uses a service worker to cache responses to requests for site assets. 
+Visited pages are rendered when there is no network access.
+
+⚠️The service worker with the create-react-app only works in the production build, not in the development mode.
+We can run it in production by using the following commands
+
+	npm run build
+	serve -s build
+
+And then visit localhost:5000
+
 
 ## Installation
 
