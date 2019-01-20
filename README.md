@@ -33,4 +33,4 @@ I used Fetch API for asynchronous fetch of data, that was then converted to JSON
 	- make one source of truth for gMaps initial center and FourSquare reference point
 	- add option to select the query
 	- move the search input field to the header, leaving menu on the left
-  - sort list by popularity of places
+	- sort list by popularity of places
